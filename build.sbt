@@ -1,18 +1,15 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
-val scala2Version = "2.13.3"
-val dottyVersion = "0.27.0-RC1"
 
-val core = projectMatrix
+val core = project
   .settings(
-    scalaVersion := dottyVersion,
-    libraryDependencies ++= Seq("org.typelevel" %% "cats-kernel" % "2.3.0-M1")
+    scalaVersion := "3.0.0-M1",
+    libraryDependencies ++= Seq("org.typelevel" %% "cats-core" % "2.3.0-M2")
   )
-  .jvmPlatform(scalaVersions = Seq(dottyVersion, scala2Version))
 
-val app = projectMatrix
+val app = project
   .dependsOn(core)
   .settings(
-    libraryDependencies ++= Seq("org.typelevel" %% "cats-core" % "2.3.0-M1"),
-    scalaVersion := scala2Version
+    scalaVersion := "2.13.4",
+    scalacOptions += "-Ytasty-reader"
   )
-  .jvmPlatform(scalaVersions = Seq(scala2Version))
+
